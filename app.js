@@ -1,41 +1,55 @@
 $(document).ready(function () {
 
-  var svgHeight = 700;
-  var svgWidth = 2000;
-  var barPadding = 1;
+// Initalize the SVG parameters 
 
-  function createSvg(parent, height, width) {
-    return d3.select(parent)
+var svgHeight = 720;
+var svgWidth = 1500;
+var barPadding = 1;
+
+//  Creates the SVG, passing through the height & width // 
+
+function createSvg(parent, height, width) {
+    return d3.select(parent) // Selecting the parent element 
     .append('svg') // Creates a new object under parent 
     .attr('height', height) // Changes the height 
     .attr('width', width); // Changes the width  
-  } 
+  }
 
-  var graph = createSvg('#graph', svgHeight, svgWidth);
+// Create SVG and assigns to variable 'graph' //  
 
-  var frequencyData = new Uint8Array(512);
-  for (i = 0; i < 512; i++) {
-    frequencyData[i] = 1;
+var graph = createSvg('#graph', svgHeight, svgWidth);
+
+// frequencyData creates a new unsigned 8 bits Array w/ 512 elements
+
+var frequencyData = new Uint8Array(512);
+for (i = 0; i < frequencyData.length; i++) {
+  frequencyData[i] = 1;
 }
+
+// Set-up structure of data/frequency values 
 
   graph.selectAll('rect')   // Selects all rectangles in graph
   .data(frequencyData) // Binds array to data
   .enter()  // Creates new rectangles
   .append('rect') // Appends new elements to the DOM 
-  .attr('width', svgWidth / frequencyData.length - barPadding)
-  .attr('height', function (d) {
-    return d * 4;
+  graph.selectAll('rect').style('fill', '#66ccff') // changes colour of rects
+  .attr('width', svgWidth / frequencyData.length - barPadding) // Length of each rectangle
+  .attr('height', function (d) { // Height of each rectangle
+    return d * 2; // Inital height of rectangle 
   })
-  .attr('x', function (d, i) {
+  .attr('x', function (d, i) { // Aligns the rectangles in a specific length
     return i * (svgWidth / frequencyData.length);
   })
   .attr('y', function (d) {
         return svgHeight - (d * 2); // Align the bars to the bottom of the SVG.
       });
 
-//Audio stuff---------------------------------------------
+//Audio stuff
+
 var contextClass = (window.AudioContext || window.webkitAudioContext);
-//get mic in
+
+// get mic in
+
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 navigator.getUserMedia(
   {audio:true},
@@ -46,10 +60,15 @@ navigator.getUserMedia(
   );
 
 //for sound to be passed into
+
 var audioBuffer;
+
 //for analyser node
+
 var analyzer;
+
 //set empty array hald of fft size or equal to frequencybincount (you could put frequency bin count here if created)
+
 var frequencyData = new Uint8Array(512);
 if (contextClass) {
   // Web Audio API is available.
@@ -57,11 +76,12 @@ if (contextClass) {
   console.warn('yes!');
 } else {
   // Web Audio API is not available. Ask the user to use a supported browser.
-  alert("Oh nos! It appears your browser does not support the Web Audio API, please upgrade or use a different browser");
-  console.warn('poobags');
+  alert("Oh no! It appears your browser does not support the Web Audio API, please upgrade or use a different browser");
+  console.warn('get a new browser fam');
 }
 
 // success callback when requesting audio input stream
+
 function gotStream(stream) {
   createAnalyser()
     // Create an AudioNode from the stream.
@@ -93,7 +113,7 @@ function playSound() {
 function update() {
   requestAnimationFrame(update);
   //constantly getting feedback from data
-  analyzer.getByteFrequencyData(frequencyData);
+  analyzer.getByteFrequencyData(frequencyData); 
 
   graph.selectAll('rect')
   .data(frequencyData)
