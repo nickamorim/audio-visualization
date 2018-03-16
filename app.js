@@ -1,13 +1,11 @@
 $(document).ready(function () {
 
 // Initalize the SVG parameters 
-
 var svgHeight = 720;
 var svgWidth = 1500;
 var barPadding = 1;
 
 //  Creates the SVG, passing through the height & width // 
-
 function createSvg(parent, height, width) {
     return d3.select(parent) // Selecting the parent element 
     .append('svg') // Creates a new object under parent 
@@ -16,11 +14,9 @@ function createSvg(parent, height, width) {
   }
 
 // Create SVG and assigns to variable 'graph' //  
-
 var graph = createSvg('#graph', svgHeight, svgWidth);
 
 // frequencyData creates a new unsigned 8 bits Array w/ 512 elements
-
 var frequencyData = new Uint8Array(512);
 for (i = 0; i < frequencyData.length; i++) {
 	frequencyData[i] = 1;
@@ -29,7 +25,6 @@ for (i = 0; i < frequencyData.length; i++) {
 var pause = 0;
 
 // Set-up structure of data/frequency values 
-
   graph.selectAll('rect')   // Selects all rectangles in graph
   .data(frequencyData) // Binds array to data
   .enter()  // Creates new rectangles
@@ -47,11 +42,9 @@ var pause = 0;
       });
 
 //Audio stuff
-
 var contextClass = (window.AudioContext || window.webkitAudioContext);
 
-// get mic in
-
+// Get mic in
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 navigator.getUserMedia(
 	{audio:true},
@@ -61,16 +54,14 @@ navigator.getUserMedia(
 	} 
 	);
 
-//for sound to be passed into
-
+// For sound to be passed into
 var audioBuffer;
 
-//for analyser node
-
+// For analyser node
 var analyzer;
 
-//set empty array hald of fft size or equal to frequencybincount (you could put frequency bin count here if created)
-
+//Set empty array hald of fft size or equal to frequencybincount 
+// (you could put frequency bin count here if created)
 if (contextClass) {
   // Web Audio API is available.
   var context = new contextClass();
@@ -81,8 +72,7 @@ if (contextClass) {
   console.warn('get a new browser fam');
 }
 
-// success callback when requesting audio input stream
-
+// Success callback when requesting audio input stream
 function gotStream(stream) {
 	createAnalyser()
     // Create an AudioNode from the stream.
@@ -92,21 +82,21 @@ function gotStream(stream) {
   }
 
   function createAnalyser() {
-  //create analyser node
+  // Create analyser node
   analyzer = context.createAnalyser();
-  //set size of how many bits we analyse on
+  // Set size of how many bits we analyse on
   analyzer.fftSize = 2048;
 }
 
 function connectAnalyser(source) {
-  //connect to source
+  // Connect to source
   source.connect(analyzer);
 }
 
 function playSound() {
-  //passing in file
+  // Passing in file
   createAnalyser();
-  //creating source node
+  // Creating source node
   var source = context.createMediaElementSource(audioElement);
   connectAnalyser(source);
 }
@@ -116,7 +106,7 @@ function update() {
   if (pause == 1) {
     return
   }
-  //constantly getting feedback from data
+  // Constantly getting feedback from data
   analyzer.getByteFrequencyData(frequencyData); 
 
   graph.selectAll('rect')
