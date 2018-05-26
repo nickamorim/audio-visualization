@@ -3,6 +3,7 @@ Audio visualization binding frequency data of audio inputs through a microphone.
 
 **Prerequisites:**
 Docker : https://docs.docker.com/install/
+<br>
 Git : https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 To set-up the environment and run locally,
