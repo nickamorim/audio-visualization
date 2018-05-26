@@ -2,6 +2,7 @@
 Audio visualization binding frequency data of audio inputs through a microphone.
 
 **Prerequisites:**
+<br>
 Docker : https://docs.docker.com/install/
 <br>
 Git : https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -19,4 +20,4 @@ docker run -ti -p 8000:80 web
 
 Navigate to localhost:8000
 
-Next,  🔇🎧📊:musical_note:
+Next, play some :musical_note: & 🔇🎧📊
