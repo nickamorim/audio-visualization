@@ -20,4 +20,4 @@ docker run -ti -p 8000:80 web
 
 Navigate to localhost:8000
 
-Next, play some :musical_note: & 🔇🎧📊
+Next, play some :musical_note: & 🔇🎧
