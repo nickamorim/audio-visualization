@@ -1,5 +1,5 @@
 # Audio-Visualization
-Audio visualization binding frequency data of audio inputs through a microphone.
+Audio visualization interface that binds frequency data of audio inputs to the DOM through the microphone.
 
 **Prerequisites:**
 <br>
@@ -7,17 +7,17 @@ Docker : https://docs.docker.com/install/
 <br>
 Git : https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-To set-up the environment and run locally,
+To set-up your environment and run locally,
 ```
-cd your/local/directory
+cd project/directory
 git clone https://github.com/nickamorim/audio-visualization
 ```
 
-Run from command line:
+Run:
 ```
 docker run -ti -p 8000:80 web
 ```
 
-Navigate to localhost:8000
+Navigate to localhost:8000 on the broswer
 
 Next, play some :musical_note: & 🔇🎧
